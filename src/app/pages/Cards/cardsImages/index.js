@@ -53,3 +53,5 @@ export { default as Diamond11 } from './11diamond.jpg';
 export { default as Diamond12 } from './12diamond.jpg';
 export { default as Diamond13 } from './13diamond.jpg';
 export { default as Diamond14 } from './14diamond.jpg';
+
+export { default as RedBack } from './Red_back.jpg';

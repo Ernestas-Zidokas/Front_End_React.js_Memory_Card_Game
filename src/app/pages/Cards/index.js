@@ -1,16 +1,15 @@
 import React from 'react';
-import * as cardImages from './cardsImages';
 import { SingleCard } from '../../components';
 import { connect } from 'react-redux';
 import game from '../../../game';
 import './index.scss';
 
-function Cards({ cards }) {
+function Cards({ cards, isWin }) {
   return (
     <div className="Cards">
-      {cards.map(({ suit, num }, i) => {
-        let cardType = suit + num;
-        return <SingleCard key={i} src={cardImages[cardType]} alt={`${num} of ${suit}`} />;
+      {isWin && <h1>You Won!</h1>}
+      {cards.map(props => {
+        return <SingleCard key={props.id} {...props} />;
       })}
     </div>
   );
@@ -18,6 +17,7 @@ function Cards({ cards }) {
 
 const enhance = connect(state => ({
   cards: game.selectors.getCards(state),
+  isWin: game.selectors.getWinGame(state),
 }));
 
 export default enhance(Cards);

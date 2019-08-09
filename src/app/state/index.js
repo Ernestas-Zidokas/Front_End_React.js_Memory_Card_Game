@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 const logger = ({ getState, dispatch }) => next => action => {
   console.log(action.type);
+
   next(action);
 };
 

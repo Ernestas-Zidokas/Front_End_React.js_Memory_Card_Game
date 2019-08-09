@@ -1,4 +1,5 @@
 import * as constants from '../app/constants';
+import uniqueId from 'uniqid';
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -23,6 +24,7 @@ function generateCards(count) {
     let card = {
       num: Math.floor(Math.random() * 13) + 2,
       suit: constants.suits[Math.floor(Math.random() * 4)],
+      isOpen: false,
     };
 
     let cardExists = cardArray.find(
@@ -36,7 +38,9 @@ function generateCards(count) {
     }
   }
 
-  return shuffle([...cardArray, ...cardArray]);
+  let cardArrayWithId = [...cardArray, ...cardArray].map(card => ({ ...card, id: uniqueId() }));
+
+  return shuffle(cardArrayWithId);
 }
 
 export default generateCards;
