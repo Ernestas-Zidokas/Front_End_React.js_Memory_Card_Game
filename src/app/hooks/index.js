@@ -1,1 +1,1 @@
-export { default as getPrevious } from './getPrevious';
+export { default as useInterval } from './useInterval';

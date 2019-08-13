@@ -22,8 +22,13 @@ export const openCard = id => (dispatch, getState) => {
 
   if (getState().game.cards.data.every(card => card.isOpen)) {
     dispatch({ type: types.WIN_GAME, payload: true });
+    dispatch({ type: types.PLAY });
   }
 };
+
+export const play = () => ({
+  type: types.PLAY,
+});
 
 export const getCards = count => async dispatch => {
   dispatch({ type: types.GET_CARDS });

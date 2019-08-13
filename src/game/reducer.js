@@ -6,6 +6,7 @@ const INITIAL_GAME_STATE = {
   loading: false,
   previousCard: {},
   winGame: false,
+  inGame: false,
 };
 
 const INITIAL_STATE = {
@@ -71,6 +72,14 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           ...state.cards,
           data: state.cards.data.map(card => ({ ...card, isOpen: true })),
           winGame: true,
+        },
+      };
+    case actionTypes.PLAY:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          inGame: !state.cards.inGame,
         },
       };
 
