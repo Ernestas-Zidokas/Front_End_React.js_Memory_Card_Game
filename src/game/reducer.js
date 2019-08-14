@@ -54,7 +54,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
               ? { ...card, isOpen: false }
               : card,
           ),
-          previousCard: {},
+          previousCard: INITIAL_GAME_STATE.previousCard,
         },
       };
     case actionTypes.OPEN_SUCCESS:
@@ -62,7 +62,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         cards: {
           ...state.cards,
-          previousCard: {},
+          previousCard: INITIAL_GAME_STATE.previousCard,
         },
       };
     case actionTypes.WIN_GAME:

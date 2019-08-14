@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import { generateCards } from '../utils';
 
-export const openCard = id => (dispatch, getState) => {
+export const openCard = id => async (dispatch, getState) => {
   dispatch({ type: types.OPEN_CARD, payload: id });
   const cards = getState().game.cards;
 
@@ -12,18 +12,20 @@ export const openCard = id => (dispatch, getState) => {
     if (prevSuit === currSuit && prevNum === currNum) {
       dispatch({ type: types.OPEN_SUCCESS });
     } else {
-      setTimeout(() => {
+      await setTimeout(() => {
         dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
       }, 1000);
     }
   }
-
-  dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
+  if (!prevSuit) {
+    dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
+  }
 
   if (getState().game.cards.data.every(card => card.isOpen)) {
     dispatch({ type: types.WIN_GAME, payload: true });
     dispatch({ type: types.PLAY });
   }
+  console.log(getState());
 };
 
 export const play = () => ({
