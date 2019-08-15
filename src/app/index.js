@@ -7,7 +7,7 @@ import game from '../game';
 
 function App() {
   useEffect(() => {
-    store.dispatch(game.actions.getCards(2));
+    store.dispatch(game.actions.getCards());
   }, []);
 
   return (

@@ -7,6 +7,8 @@ const INITIAL_GAME_STATE = {
   previousCard: {},
   winGame: false,
   inGame: false,
+  cardCount: 7,
+  movesCount: 0,
 };
 
 const INITIAL_STATE = {
@@ -16,10 +18,22 @@ const INITIAL_STATE = {
 function reducer(state = INITIAL_STATE, { type, payload }) {
   switch (type) {
     case actionTypes.GET_CARDS:
-      return { ...state, cards: { ...INITIAL_GAME_STATE, loading: true } };
+      return {
+        ...state,
+        cards:
+          state.cards.data.length > 0
+            ? { ...state.cards, loading: true }
+            : { ...INITIAL_GAME_STATE, loading: true },
+      };
 
     case actionTypes.GET_CARDS_SUCCESS:
-      return { ...state, cards: { ...INITIAL_GAME_STATE, data: payload } };
+      return {
+        ...state,
+        cards:
+          state.cards.data.length > 0
+            ? { ...state.cards, data: payload }
+            : { ...INITIAL_GAME_STATE, data: payload },
+      };
 
     case actionTypes.GET_CARDS_FAILURE:
       return { ...state, cards: { ...INITIAL_GAME_STATE, error: payload } };
@@ -80,6 +94,24 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         cards: {
           ...state.cards,
           inGame: !state.cards.inGame,
+        },
+      };
+
+    case actionTypes.SET_CARD_COUNT:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          cardCount: payload,
+        },
+      };
+
+    case actionTypes.SET_MOVES_COUNT:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          movesCount: state.cards.movesCount + 1,
         },
       };
 

@@ -1,16 +1,33 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import game from '../../../game';
 import './index.scss';
 
-function Layout({ children }) {
+function Layout({ children, cardCount }) {
+  const Main = styled.main`
+    max-width: 1020px;
+    width: 100%;
+    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
   return (
     <div className="Layout">
       <Header />
-      <main className="Main">{children}</main>
+      <Main>{children}</Main>
       <Footer />
     </div>
   );
 }
 
-export default Layout;
+const enhance = connect(state => ({
+  cardCount: game.selectors.getCardCount(state),
+}));
+
+export default enhance(Layout);

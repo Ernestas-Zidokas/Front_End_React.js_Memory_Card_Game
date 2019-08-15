@@ -11,3 +11,11 @@ export const getWinGame = state => {
 export const getInGame = state => {
   return state[MODULE_NAME].cards.inGame;
 };
+
+export const getCardCount = state => {
+  return state[MODULE_NAME].cards.cardCount;
+};
+
+export const getMovesCount = state => {
+  return state[MODULE_NAME].cards.movesCount;
+};

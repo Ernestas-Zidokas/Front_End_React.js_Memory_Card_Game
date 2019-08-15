@@ -1,9 +1,12 @@
 import * as types from './actionTypes';
+import { MODULE_NAME } from './constants';
 import { generateCards } from '../utils';
 
 export const openCard = id => async (dispatch, getState) => {
   dispatch({ type: types.OPEN_CARD, payload: id });
-  const cards = getState().game.cards;
+  dispatch({ type: types.SET_MOVES_COUNT });
+
+  const cards = getState()[MODULE_NAME].cards;
 
   const { suit: prevSuit, num: prevNum, id: prevId } = cards.previousCard;
   const { suit: currSuit, num: currNum } = cards.data.find(card => card.id === id);
@@ -14,31 +17,33 @@ export const openCard = id => async (dispatch, getState) => {
     } else {
       await setTimeout(() => {
         dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
-      }, 1000);
+      }, 700);
     }
   }
+
   if (!prevSuit) {
     dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
   }
 
-  if (getState().game.cards.data.every(card => card.isOpen)) {
+  if (getState()[MODULE_NAME].cards.data.every(card => card.isOpen)) {
     dispatch({ type: types.WIN_GAME, payload: true });
     dispatch({ type: types.PLAY });
   }
-  console.log(getState());
 };
 
 export const play = () => ({
   type: types.PLAY,
 });
 
-export const getCards = count => async dispatch => {
+export const getCards = () => (dispatch, getState) => {
+  const { cardCount } = getState()[MODULE_NAME].cards;
+
   dispatch({ type: types.GET_CARDS });
 
   try {
     dispatch({
       type: types.GET_CARDS_SUCCESS,
-      payload: generateCards(count),
+      payload: generateCards(cardCount),
     });
   } catch (error) {
     dispatch({
@@ -46,4 +51,10 @@ export const getCards = count => async dispatch => {
       payload: 'Something went wrong!',
     });
   }
+};
+
+export const setCardCount = count => dispatch => {
+  dispatch({ type: types.SET_CARD_COUNT, payload: count });
+
+  dispatch(getCards());
 };

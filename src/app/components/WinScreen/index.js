@@ -2,15 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import game from '../../../game';
+import { Difficulty } from './components';
 import './index.scss';
 
 function WinScreen({ isWin, play }) {
   return (
     <div className="WinScreen">
-      {isWin && <div className="WinScreen--title">You Won!!!</div>}
-      <button type="button" onClick={() => play()}>
-        Play
-      </button>
+      <div className="WinScreen--container">
+        {isWin && <div className="WinScreen--container--title">You Won!!!</div>}
+        <button className="WinScreen--container--play" type="button" onClick={() => play()}>
+          Play
+        </button>
+        <Difficulty />
+      </div>
     </div>
   );
 }
