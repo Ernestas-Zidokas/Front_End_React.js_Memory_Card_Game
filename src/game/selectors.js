@@ -5,7 +5,7 @@ export const getCards = state => {
 };
 
 export const getWinGame = state => {
-  return state[MODULE_NAME].cards.winGame;
+  return state[MODULE_NAME].cards.isWin;
 };
 
 export const getInGame = state => {

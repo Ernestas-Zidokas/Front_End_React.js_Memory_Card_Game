@@ -3,37 +3,44 @@ import { MODULE_NAME } from './constants';
 import { generateCards } from '../utils';
 
 export const openCard = id => async (dispatch, getState) => {
-  dispatch({ type: types.OPEN_CARD, payload: id });
-  dispatch({ type: types.SET_MOVES_COUNT });
-
   const cards = getState()[MODULE_NAME].cards;
-
   const { suit: prevSuit, num: prevNum, id: prevId } = cards.previousCard;
-  const { suit: currSuit, num: currNum } = cards.data.find(card => card.id === id);
+  const { suit: currSuit, num: currNum, isOpen } = cards.data.find(card => card.id === id);
 
-  if (prevSuit) {
-    if (prevSuit === currSuit && prevNum === currNum) {
-      dispatch({ type: types.OPEN_SUCCESS });
-    } else {
-      await setTimeout(() => {
-        dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
-      }, 700);
+  if (!isOpen) {
+    dispatch({ type: types.OPEN_CARD, payload: id });
+    dispatch({ type: types.SET_MOVES_COUNT });
+
+    if (prevSuit) {
+      if (prevSuit === currSuit && prevNum === currNum) {
+        dispatch({ type: types.OPEN_SUCCESS });
+      } else {
+        await setTimeout(() => {
+          dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
+        }, 700);
+      }
     }
-  }
 
-  if (!prevSuit) {
-    dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
-  }
+    if (!prevSuit) {
+      dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
+    }
 
-  if (getState()[MODULE_NAME].cards.data.every(card => card.isOpen)) {
-    dispatch({ type: types.WIN_GAME, payload: true });
-    dispatch({ type: types.PLAY });
+    if (getState()[MODULE_NAME].cards.data.every(card => card.isOpen)) {
+      dispatch({ type: types.IS_WIN, payload: true });
+      dispatch({ type: types.PLAY });
+    }
   }
 };
 
 export const play = () => ({
   type: types.PLAY,
 });
+
+export const playAgain = () => dispatch => {
+  dispatch({ type: types.PLAY_AGAIN });
+  dispatch(play());
+  dispatch(getCards());
+};
 
 export const getCards = () => (dispatch, getState) => {
   const { cardCount } = getState()[MODULE_NAME].cards;

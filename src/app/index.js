@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Layout } from './components';
+import { Layout, TimerProvider } from './components';
 import { Cards } from './pages';
 import store from './state';
 import game from '../game';
@@ -11,11 +11,13 @@ function App() {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Layout>
-        <Cards />
-      </Layout>
-    </Provider>
+    <TimerProvider>
+      <Provider store={store}>
+        <Layout>
+          <Cards />
+        </Layout>
+      </Provider>
+    </TimerProvider>
   );
 }
 

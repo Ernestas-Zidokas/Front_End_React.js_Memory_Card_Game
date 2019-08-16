@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import game from '../../../game';
 import { Difficulty } from './components';
+import TimerContext from '../TimerContext';
 import './index.scss';
 
-function WinScreen({ isWin, play }) {
+function WinScreen({ isWin, play, playAgain }) {
+  const { setTime } = useContext(TimerContext);
+
   return (
     <div className="WinScreen">
       <div className="WinScreen--container">
         {isWin && <div className="WinScreen--container--title">You Won!!!</div>}
-        <button className="WinScreen--container--play" type="button" onClick={() => play()}>
-          Play
-        </button>
+        {!isWin && (
+          <button className="WinScreen--container--play" type="button" onClick={() => play()}>
+            Play
+          </button>
+        )}
+        {isWin && (
+          <button
+            className="WinScreen--container--playAgain"
+            type="button"
+            onClick={() => {
+              setTime(0);
+              playAgain();
+            }}
+          >
+            Play Again
+          </button>
+        )}
         <Difficulty />
       </div>
     </div>
@@ -28,6 +45,7 @@ const enhance = compose(
       bindActionCreators(
         {
           play: game.actions.play,
+          playAgain: game.actions.playAgain,
         },
         dispatch,
       ),

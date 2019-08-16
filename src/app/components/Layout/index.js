@@ -6,21 +6,30 @@ import { connect } from 'react-redux';
 import game from '../../../game';
 import './index.scss';
 
-function Layout({ children, cardCount }) {
-  const Main = styled.main`
-    max-width: 1020px;
-    width: 100%;
-    margin: 0 auto;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
+const Main = styled.main`
+  max-width: ${({ cardCount }) => {
+    if (cardCount === 5) {
+      return '800px';
+    }
+    if (cardCount === 15) {
+      return '1400px';
+    }
+    return '1020px';
+  }};
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
 
+function Layout({ children, cardCount }) {
   return (
     <div className="Layout">
       <Header />
-      <Main>{children}</Main>
+      <Main cardCount={cardCount}>{children}</Main>
       <Footer />
     </div>
   );

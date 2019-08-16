@@ -5,7 +5,7 @@ const INITIAL_GAME_STATE = {
   error: null,
   loading: false,
   previousCard: {},
-  winGame: false,
+  isWin: false,
   inGame: false,
   cardCount: 7,
   movesCount: 0,
@@ -79,13 +79,13 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           previousCard: INITIAL_GAME_STATE.previousCard,
         },
       };
-    case actionTypes.WIN_GAME:
+    case actionTypes.IS_WIN:
       return {
         ...state,
         cards: {
           ...state.cards,
           data: state.cards.data.map(card => ({ ...card, isOpen: true })),
-          winGame: true,
+          isWin: true,
         },
       };
     case actionTypes.PLAY:
@@ -112,6 +112,16 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         cards: {
           ...state.cards,
           movesCount: state.cards.movesCount + 1,
+        },
+      };
+
+    case actionTypes.PLAY_AGAIN:
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          movesCount: 0,
+          isWin: false,
         },
       };
 

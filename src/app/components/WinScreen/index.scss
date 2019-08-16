@@ -18,7 +18,8 @@
       padding: 10px;
     }
 
-    &--play {
+    &--play,
+    &--playAgain {
       cursor: pointer;
       font-size: 30px;
       height: 50px;
@@ -31,6 +32,12 @@
         background: green;
       }
     }
+
+    &--playAgain {
+      height: 80px;
+      width: 100px;
+    }
+
     &--difficulty {
       background: rgba(47, 79, 79, 0.8);
       padding: 20px;

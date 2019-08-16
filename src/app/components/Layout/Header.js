@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import game from '../../../game';
 import { connect } from 'react-redux';
 import { useInterval } from '../../hooks';
+import TimerContext from '../TimerContext';
 import './index.scss';
 
 function Header({ inGame, movesCount }) {
-  const [time, setTime] = React.useState(0);
+  const { time, setTime } = useContext(TimerContext);
 
   useInterval(
     () => {
