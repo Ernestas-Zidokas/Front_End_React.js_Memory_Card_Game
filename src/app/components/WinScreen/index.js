@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import game from '../../../game';
-import { Difficulty } from './components';
+import { Difficulty, Score } from './components';
 import TimerContext from '../TimerContext';
 import './index.scss';
 
@@ -13,6 +13,7 @@ function WinScreen({ isWin, play, playAgain }) {
     <div className="WinScreen">
       <div className="WinScreen--container">
         {isWin && <div className="WinScreen--container--title">You Won!!!</div>}
+        {isWin && <Score />}
         {!isWin && (
           <button className="WinScreen--container--play" type="button" onClick={() => play()}>
             Play

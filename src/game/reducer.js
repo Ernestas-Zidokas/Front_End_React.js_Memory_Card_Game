@@ -13,6 +13,7 @@ const INITIAL_GAME_STATE = {
 
 const INITIAL_STATE = {
   cards: INITIAL_GAME_STATE,
+  scoreBoard: [],
 };
 
 function reducer(state = INITIAL_STATE, { type, payload }) {
@@ -31,7 +32,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         cards:
           state.cards.data.length > 0
-            ? { ...state.cards, data: payload }
+            ? { ...state.cards, data: payload, loading: false }
             : { ...INITIAL_GAME_STATE, data: payload },
       };
 

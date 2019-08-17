@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout, TimerProvider } from './components';
-import { Cards } from './pages';
+import { Cards, ScoreBoard } from './pages';
+import { ROUTES } from '../constants';
 import store from './state';
 import game from '../game';
 
@@ -13,9 +15,14 @@ function App() {
   return (
     <TimerProvider>
       <Provider store={store}>
-        <Layout>
-          <Cards />
-        </Layout>
+        <Router>
+          <Layout>
+            <Switch>
+              <Route path={ROUTES.defaultPage} exact component={Cards} />
+              <Route path={ROUTES.scoreBoard} exact component={ScoreBoard} />
+            </Switch>
+          </Layout>
+        </Router>
       </Provider>
     </TimerProvider>
   );

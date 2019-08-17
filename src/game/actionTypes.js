@@ -13,3 +13,5 @@ export const PLAY = `${MODULE_NAME}.PLAY`;
 export const PLAY_AGAIN = `${MODULE_NAME}.PLAY_AGAIN`;
 export const SET_CARD_COUNT = `${MODULE_NAME}.SET_CARD_COUNT`;
 export const SET_MOVES_COUNT = `${MODULE_NAME}.SET_MOVES_COUNT`;
+
+export const SET_SCORE = `${MODULE_NAME}.SET_SCORE`;

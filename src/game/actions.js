@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import { MODULE_NAME } from './constants';
 import { generateCards } from '../utils';
 
-export const openCard = id => async (dispatch, getState) => {
+export const openCard = id => (dispatch, getState) => {
   const cards = getState()[MODULE_NAME].cards;
   const { suit: prevSuit, num: prevNum, id: prevId } = cards.previousCard;
   const { suit: currSuit, num: currNum, isOpen } = cards.data.find(card => card.id === id);
@@ -15,7 +15,7 @@ export const openCard = id => async (dispatch, getState) => {
       if (prevSuit === currSuit && prevNum === currNum) {
         dispatch({ type: types.OPEN_SUCCESS });
       } else {
-        await setTimeout(() => {
+        setTimeout(() => {
           dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
         }, 700);
       }
@@ -25,7 +25,9 @@ export const openCard = id => async (dispatch, getState) => {
       dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
     }
 
-    if (getState()[MODULE_NAME].cards.data.every(card => card.isOpen)) {
+    const everyCardOpen = getState()[MODULE_NAME].cards.data.every(card => card.isOpen);
+
+    if (everyCardOpen) {
       dispatch({ type: types.IS_WIN, payload: true });
       dispatch({ type: types.PLAY });
     }

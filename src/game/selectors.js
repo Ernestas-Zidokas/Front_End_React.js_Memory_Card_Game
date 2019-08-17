@@ -19,3 +19,7 @@ export const getCardCount = state => {
 export const getMovesCount = state => {
   return state[MODULE_NAME].cards.movesCount;
 };
+
+export const getScoreBoard = state => {
+  return state[MODULE_NAME].scoreBoard;
+};

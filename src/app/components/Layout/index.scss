@@ -8,17 +8,27 @@
 
 .Header {
   padding: 0px 15px;
-  text-align: center;
+  background: #2e802e;
 
-  &--time {
-    font-size: 30px;
-    margin: 20px;
-  }
+  &--navigation {
+    max-width: 1020px;
+    margin: 0 auto;
 
-  &--moves {
-    margin: 20px;
-    display: inline-block;
-    font-size: 30px;
+    &-item {
+      display: inline-block;
+      color: #fff;
+      font-size: 20px;
+      line-height: 20px;
+      padding: 10px 15px;
+      transition: all 0.3s;
+
+      &:hover,
+      &.active {
+        opacity: 0.6;
+        background: #fff;
+        color: #2e802e;
+      }
+    }
   }
 }
 
