@@ -3,13 +3,8 @@ import game from '../../../game';
 import { connect } from 'react-redux';
 import { useInterval } from '../../hooks';
 import TimerContext from '../TimerContext';
+import { timeConverter } from '../../../utils';
 import './index.scss';
-
-function timeConvert(num) {
-  let min = Math.floor(num / 60);
-  let sec = num % 60;
-  return { min, sec };
-}
 
 function Timer({ inGame, movesCount }) {
   const { time, setTime } = useContext(TimerContext);
@@ -21,7 +16,7 @@ function Timer({ inGame, movesCount }) {
     inGame ? 1000 : null,
   );
 
-  const { min, sec } = timeConvert(time);
+  const { min, sec } = timeConverter(time);
 
   return (
     <div className="Timer">

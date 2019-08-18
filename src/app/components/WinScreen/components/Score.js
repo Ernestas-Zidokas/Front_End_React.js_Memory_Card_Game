@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
+import TimerContext from '../../TimerContext';
+import game from '../../../../game';
 
-function Score() {
+function Score({ setScore }) {
+  const [name, setName] = useState('');
+  const { time } = useContext(TimerContext);
+
+  const handleChange = e => {
+    setName(e.target.value);
+  };
+
   return (
-    <div>
+    <form onSubmit={e => setScore(e, name, time)}>
       <label>Your Name:</label>
-      <input type="text" name="score" />
-      <button type="button" onClick={() => console.log('set Score')}>
-        Submit
-      </button>
-    </div>
+      <input type="text" name="score" onChange={handleChange} />
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
-export default Score;
+const enhance = compose(
+  connect(
+    null,
+    dispatch =>
+      bindActionCreators(
+        {
+          setScore: game.actions.setScore,
+        },
+        dispatch,
+      ),
+  ),
+);
+
+export default enhance(Score);

@@ -21,5 +21,9 @@ export const getMovesCount = state => {
 };
 
 export const getScoreBoard = state => {
-  return state[MODULE_NAME].scoreBoard;
+  return state[MODULE_NAME].scoreBoard.data;
+};
+
+export const getSortBy = state => {
+  return state[MODULE_NAME].scoreBoard.sortBy;
 };

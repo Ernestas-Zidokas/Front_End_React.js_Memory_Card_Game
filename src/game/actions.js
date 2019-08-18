@@ -52,7 +52,7 @@ export const getCards = () => (dispatch, getState) => {
   try {
     dispatch({
       type: types.GET_CARDS_SUCCESS,
-      payload: generateCards(cardCount),
+      payload: generateCards(2),
     });
   } catch (error) {
     dispatch({
@@ -67,3 +67,18 @@ export const setCardCount = count => dispatch => {
 
   dispatch(getCards());
 };
+
+export const setScore = (e, name, time) => dispatch => {
+  e.preventDefault();
+  const score = { name, time };
+
+  dispatch({
+    type: types.SET_SCORE,
+    payload: score,
+  });
+};
+
+export const setSortBy = filter => ({
+  type: types.SET_SORT_BY,
+  payload: filter,
+});

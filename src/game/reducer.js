@@ -11,9 +11,14 @@ const INITIAL_GAME_STATE = {
   movesCount: 0,
 };
 
+const INITIAL_SCOREBOARD_STATE = {
+  data: [],
+  sortBy: 'time',
+};
+
 const INITIAL_STATE = {
   cards: INITIAL_GAME_STATE,
-  scoreBoard: [],
+  scoreBoard: INITIAL_SCOREBOARD_STATE,
 };
 
 function reducer(state = INITIAL_STATE, { type, payload }) {
@@ -72,6 +77,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           previousCard: INITIAL_GAME_STATE.previousCard,
         },
       };
+
     case actionTypes.OPEN_SUCCESS:
       return {
         ...state,
@@ -80,6 +86,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           previousCard: INITIAL_GAME_STATE.previousCard,
         },
       };
+
     case actionTypes.IS_WIN:
       return {
         ...state,
@@ -89,6 +96,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           isWin: true,
         },
       };
+
     case actionTypes.PLAY:
       return {
         ...state,
@@ -123,6 +131,27 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
           ...state.cards,
           movesCount: 0,
           isWin: false,
+        },
+      };
+
+    case actionTypes.SET_SCORE:
+      return {
+        ...state,
+        scoreBoard: {
+          ...state.scoreBoard,
+          data: [...state.scoreBoard.data, { ...payload, movesCount: state.cards.movesCount }],
+        },
+      };
+
+    case actionTypes.SET_SORT_BY:
+      return {
+        ...state,
+        scoreBoard: {
+          sortBy: payload,
+          data:
+            payload === 'time'
+              ? state.scoreBoard.data.sort((a, b) => a.time - b.time)
+              : state.scoreBoard.data.sort((a, b) => a.movesCount - b.movesCount),
         },
       };
 
