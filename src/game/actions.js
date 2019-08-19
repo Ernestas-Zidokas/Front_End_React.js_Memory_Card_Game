@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import { MODULE_NAME } from './constants';
+import * as selectors from './selectors';
 import { generateCards } from '../utils';
 
 export const openCard = id => (dispatch, getState) => {
@@ -7,30 +8,31 @@ export const openCard = id => (dispatch, getState) => {
   const { suit: prevSuit, num: prevNum, id: prevId } = cards.previousCard;
   const { suit: currSuit, num: currNum, isOpen } = cards.data.find(card => card.id === id);
 
+  dispatch({ type: types.OPEN_CARD, payload: id });
+
   if (!isOpen) {
-    dispatch({ type: types.OPEN_CARD, payload: id });
-    dispatch({ type: types.SET_MOVES_COUNT });
-
-    if (prevSuit) {
-      if (prevSuit === currSuit && prevNum === currNum) {
-        dispatch({ type: types.OPEN_SUCCESS });
-      } else {
-        setTimeout(() => {
-          dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
-        }, 700);
-      }
-    }
-
-    if (!prevSuit) {
-      dispatch({ type: types.SET_PREVIOUS_CARD, payload: id });
-    }
-
+    //atskiras middleware kuris reaguos i if card matched
     const everyCardOpen = getState()[MODULE_NAME].cards.data.every(card => card.isOpen);
 
     if (everyCardOpen) {
       dispatch({ type: types.IS_WIN, payload: true });
       dispatch({ type: types.PLAY });
     }
+  }
+};
+
+export const checkForMatch = id => (dispatch, getState) => {
+  const cards = selectors.getCards(getState());
+
+  const { suit: prevSuit, num: prevNum, id: prevId } = selectors.getPreviousCard(getState());
+  const { suit: currSuit, num: currNum } = cards.find(card => card.id === id);
+
+  if (prevSuit === currSuit && prevNum === currNum) {
+    dispatch({ type: types.OPEN_SUCCESS, payload: id });
+  } else {
+    setTimeout(() => {
+      dispatch({ type: types.CLOSE_CARDS, payload: { prevId, id } });
+    }, 700);
   }
 };
 
@@ -48,24 +50,14 @@ export const getCards = () => (dispatch, getState) => {
   const { cardCount } = getState()[MODULE_NAME].cards;
 
   dispatch({ type: types.GET_CARDS });
-
-  try {
-    dispatch({
-      type: types.GET_CARDS_SUCCESS,
-      payload: generateCards(2),
-    });
-  } catch (error) {
-    dispatch({
-      type: types.GET_CARDS_FAILURE,
-      payload: 'Something went wrong!',
-    });
-  }
+  dispatch({
+    type: types.GET_CARDS_SUCCESS,
+    payload: generateCards(2),
+  });
 };
 
 export const setCardCount = count => dispatch => {
   dispatch({ type: types.SET_CARD_COUNT, payload: count });
-
-  dispatch(getCards());
 };
 
 export const setScore = (e, name, time) => dispatch => {

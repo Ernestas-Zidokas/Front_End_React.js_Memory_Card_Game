@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout, TimerProvider } from './components';
@@ -8,9 +8,16 @@ import store from './state';
 import game from '../game';
 
 function App() {
+  const [cardCount, setCardCount] = useState(game.selectors.getCardCount(store.getState()));
+
+  const unsubscribe = store.subscribe(() => {
+    setCardCount(game.selectors.getCardCount(store.getState()));
+  });
+
   useEffect(() => {
     store.dispatch(game.actions.getCards());
-  }, []);
+    return unsubscribe;
+  }, [cardCount, unsubscribe]);
 
   return (
     <TimerProvider>

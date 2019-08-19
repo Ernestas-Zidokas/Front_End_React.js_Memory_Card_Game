@@ -25,6 +25,7 @@ function generateCards(count) {
       num: Math.floor(Math.random() * 13) + 2,
       suit: constants.suits[Math.floor(Math.random() * 4)],
       isOpen: false,
+      isMatched: false,
     };
 
     let cardExists = cardArray.find(

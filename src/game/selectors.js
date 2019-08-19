@@ -27,3 +27,7 @@ export const getScoreBoard = state => {
 export const getSortBy = state => {
   return state[MODULE_NAME].scoreBoard.sortBy;
 };
+
+export const getPreviousCard = state => {
+  return state[MODULE_NAME].cards.previousCard;
+};

@@ -12,7 +12,7 @@ const INITIAL_GAME_STATE = {
 };
 
 const INITIAL_SCOREBOARD_STATE = {
-  data: [],
+  data: [{ name: 'Ernestas', movesCount: 5, time: 10 }],
   sortBy: 'time',
 };
 
@@ -40,9 +40,6 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
             ? { ...state.cards, data: payload, loading: false }
             : { ...INITIAL_GAME_STATE, data: payload },
       };
-
-    case actionTypes.GET_CARDS_FAILURE:
-      return { ...state, cards: { ...INITIAL_GAME_STATE, error: payload } };
 
     case actionTypes.OPEN_CARD:
       return {
@@ -84,6 +81,11 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         cards: {
           ...state.cards,
           previousCard: INITIAL_GAME_STATE.previousCard,
+          data: state.cards.data.map(card =>
+            card.id === payload || state.cards.previousCard.id === card.id
+              ? { ...card, isMatched: true }
+              : card,
+          ),
         },
       };
 
