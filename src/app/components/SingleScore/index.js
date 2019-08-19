@@ -7,7 +7,12 @@ function SingleScore({ name, movesCount, time, i }) {
 
   return (
     <div className="SingleScore">
-      Nr. {i + 1} {name} | Moves: {movesCount} | Time: {min}m : {sec}s
+      <span>{i + 1}.</span>
+      <span>{name}</span>
+      <span>Moves: {movesCount}</span>
+      <span>
+        Time: {min}m : {sec}s
+      </span>
     </div>
   );
 }

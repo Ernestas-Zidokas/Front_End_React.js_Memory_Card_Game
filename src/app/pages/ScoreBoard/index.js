@@ -8,8 +8,14 @@ import './index.scss';
 function ScoreBoard({ scoreBoard, setSortBy, sortBy }) {
   return (
     <div className="ScoreBoard">
+      <div className="ScoreBoard--header">
+        <span>Nr.</span>
+        <span>Name</span>
+        <span>Moves</span>
+        <span>Time</span>
+      </div>
       {scoreBoard.length > 0 && (
-        <div>
+        <div className="ScoreBoard--filter">
           <button type="button" onClick={() => setSortBy('time')}>
             Time
           </button>
@@ -19,9 +25,11 @@ function ScoreBoard({ scoreBoard, setSortBy, sortBy }) {
         </div>
       )}
       {!scoreBoard.length && <p>Be the First to set your Score!</p>}
-      {scoreBoard.map((singleScore, i) => {
-        return <SingleScore key={i} {...singleScore} i={i} />;
-      })}
+      <div className="ScoreBoard--scores">
+        {scoreBoard.map((singleScore, i) => {
+          return <SingleScore key={i} {...singleScore} i={i} />;
+        })}
+      </div>
     </div>
   );
 }
