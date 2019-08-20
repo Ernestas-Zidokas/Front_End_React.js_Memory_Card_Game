@@ -67,7 +67,7 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         cards: {
           ...state.cards,
           data: state.cards.data.map(card =>
-            card.id === payload.id || card.id === payload.prevId
+            card.id === payload || card.id === state.cards.previousCard.id
               ? { ...card, isOpen: false }
               : card,
           ),
@@ -141,7 +141,9 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         scoreBoard: {
           ...state.scoreBoard,
-          data: [...state.scoreBoard.data, { ...payload, movesCount: state.cards.movesCount }],
+          data: [...state.scoreBoard.data, { ...payload, movesCount: state.cards.movesCount }].sort(
+            (a, b) => a.time - b.time,
+          ),
         },
       };
 

@@ -1,9 +1,12 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import game from '../../../game';
+import { ROUTES } from '../../../constants';
+
 import './index.scss';
 
 const Main = styled.main`
@@ -29,6 +32,10 @@ function Layout({ children, cardCount }) {
   return (
     <div className="Layout">
       <Header />
+      {/* <Switch>
+        <Route path={ROUTES.defaultPage} exact component={Cards} />
+        <Route path={ROUTES.scoreBoard} exact component={ScoreBoard} />
+      </Switch> */}
       <Main cardCount={cardCount}>{children}</Main>
       <Footer />
     </div>

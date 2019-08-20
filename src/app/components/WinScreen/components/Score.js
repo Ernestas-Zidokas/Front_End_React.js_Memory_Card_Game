@@ -1,21 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import TimerContext from '../../TimerContext';
 import game from '../../../../game';
 
 function Score({ setScore }) {
-  const [name, setName] = useState('');
   const { time } = useContext(TimerContext);
+  const inputEl = useRef(null);
 
-  const handleChange = e => {
-    setName(e.target.value);
+  const handleSubmit = (e, time) => {
+    e.preventDefault();
+    setScore(inputEl.current.value, time);
   };
 
   return (
-    <form onSubmit={e => setScore(e, name, time)}>
+    <form onSubmit={e => handleSubmit(e, time)}>
       <label>Your Name:</label>
-      <input type="text" name="score" onChange={handleChange} />
+      <input type="text" name="score" ref={inputEl} />
       <button type="submit">Submit</button>
     </form>
   );
