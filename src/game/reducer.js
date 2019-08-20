@@ -7,12 +7,19 @@ const INITIAL_GAME_STATE = {
   previousCard: {},
   isWin: false,
   inGame: false,
-  cardCount: 7,
+  cardCount: 5,
   movesCount: 0,
 };
 
 const INITIAL_SCOREBOARD_STATE = {
-  data: [{ name: 'Ernestas', movesCount: 5, time: 10 }],
+  difficulty: {
+    easy: [{ name: 'Easy', movesCount: 5, time: 10 }],
+    medium: [
+      { name: 'Medium', movesCount: 5, time: 10 },
+      { name: 'asdasd', movesCount: 10, time: 2 },
+    ],
+    hard: [{ name: 'Hard', movesCount: 5, time: 10 }],
+  },
   sortBy: 'time',
 };
 
@@ -141,21 +148,13 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         scoreBoard: {
           ...state.scoreBoard,
-          data: [...state.scoreBoard.data, { ...payload, movesCount: state.cards.movesCount }].sort(
-            (a, b) => a.time - b.time,
-          ),
-        },
-      };
-
-    case actionTypes.SET_SORT_BY:
-      return {
-        ...state,
-        scoreBoard: {
-          sortBy: payload,
-          data:
-            payload === 'time'
-              ? state.scoreBoard.data.sort((a, b) => a.time - b.time)
-              : state.scoreBoard.data.sort((a, b) => a.movesCount - b.movesCount),
+          difficulty: {
+            ...state.scoreBoard.difficulty,
+            [payload.level]: [
+              ...state.scoreBoard.difficulty[payload.level],
+              { ...payload, movesCount: state.cards.movesCount },
+            ].sort((a, b) => a.time - b.time),
+          },
         },
       };
 

@@ -15,4 +15,3 @@ export const SET_CARD_COUNT = `${MODULE_NAME}.SET_CARD_COUNT`;
 export const SET_MOVES_COUNT = `${MODULE_NAME}.SET_MOVES_COUNT`;
 
 export const SET_SCORE = `${MODULE_NAME}.SET_SCORE`;
-export const SET_SORT_BY = `${MODULE_NAME}.SET_SORT_BY`;

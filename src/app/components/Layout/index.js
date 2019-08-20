@@ -28,15 +28,26 @@ const Main = styled.main`
   text-align: center;
 `;
 
+const MainScoreBoard = styled.main`
+  max-width: 1020px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+`;
+
 function Layout({ children, cardCount }) {
   return (
     <div className="Layout">
       <Header />
-      {/* <Switch>
-        <Route path={ROUTES.defaultPage} exact component={Cards} />
-        <Route path={ROUTES.scoreBoard} exact component={ScoreBoard} />
-      </Switch> */}
-      <Main cardCount={cardCount}>{children}</Main>
+      <Switch>
+        <Route
+          path={ROUTES.scoreBoard}
+          exact
+          render={() => <MainScoreBoard cardCount={cardCount}>{children}</MainScoreBoard>}
+        />
+        <Route render={() => <Main cardCount={cardCount}>{children}</Main>} />
+      </Switch>
       <Footer />
     </div>
   );

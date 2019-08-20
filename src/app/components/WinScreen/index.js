@@ -6,7 +6,7 @@ import { Difficulty, Score } from './components';
 import TimerContext from '../TimerContext';
 import './index.scss';
 
-function WinScreen({ isWin, play, playAgain }) {
+function WinScreen({ isWin, togglePlay, playAgain }) {
   const { setTime } = useContext(TimerContext);
 
   return (
@@ -15,7 +15,14 @@ function WinScreen({ isWin, play, playAgain }) {
         {isWin && <div className="WinScreen--container--title">You Won!!!</div>}
         {isWin && <Score />}
         {!isWin && (
-          <button className="WinScreen--container--play" type="button" onClick={() => play()}>
+          <button
+            className="WinScreen--container--play"
+            type="button"
+            onClick={() => {
+              togglePlay();
+              setTime(Date.now());
+            }}
+          >
             Play
           </button>
         )}
@@ -24,7 +31,7 @@ function WinScreen({ isWin, play, playAgain }) {
             className="WinScreen--container--playAgain"
             type="button"
             onClick={() => {
-              setTime(0);
+              setTime(Date.now());
               playAgain();
             }}
           >
@@ -45,7 +52,7 @@ const enhance = compose(
     dispatch =>
       bindActionCreators(
         {
-          play: game.actions.play,
+          togglePlay: game.actions.togglePlay,
           playAgain: game.actions.playAgain,
         },
         dispatch,

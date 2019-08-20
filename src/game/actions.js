@@ -29,13 +29,13 @@ export const setPreviousCard = payload => ({
 
 export const setMovesCount = () => ({ type: types.SET_MOVES_COUNT });
 
-export const play = () => ({ type: types.PLAY });
+export const togglePlay = () => ({ type: types.PLAY });
 
 export const setWin = () => ({ type: types.IS_WIN, payload: true });
 
 export const playAgain = () => dispatch => {
   dispatch({ type: types.PLAY_AGAIN });
-  dispatch(play());
+  dispatch(togglePlay());
   dispatch(getCards());
 };
 
@@ -53,16 +53,11 @@ export const setCardCount = count => dispatch => {
   dispatch({ type: types.SET_CARD_COUNT, payload: count });
 };
 
-export const setScore = (name, time) => dispatch => {
-  const score = { name, time };
+export const setScore = (name, time, level) => dispatch => {
+  const score = { name, time, level };
 
   dispatch({
     type: types.SET_SCORE,
     payload: score,
   });
 };
-
-export const setSortBy = filter => ({
-  type: types.SET_SORT_BY,
-  payload: filter,
-});

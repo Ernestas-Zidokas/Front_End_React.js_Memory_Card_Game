@@ -16,12 +16,13 @@ export default ({ getState, dispatch }) => next => action => {
     return;
   }
 
+  dispatch(game.actions.setMovesCount());
+
+  next(action);
+
   if (!previousCard.suit) {
-    dispatch(game.actions.setPreviousCard(action.payload));
-  } else {
-    dispatch(game.actions.checkForMatch(action.payload));
+    return dispatch(game.actions.setPreviousCard(action.payload));
   }
 
-  dispatch(game.actions.setMovesCount());
-  return next(action);
+  return dispatch(game.actions.checkForMatch(action.payload));
 };

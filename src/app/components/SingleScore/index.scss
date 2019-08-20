@@ -1,10 +1,7 @@
 .SingleScore {
   display: flex;
   width: 100%;
-  // justify-content: space-between;
+  justify-content: space-between;
   padding: 10px 20px;
   border-bottom: 1px solid black;
-  span {
-    flex-grow: 1;
-  }
 }

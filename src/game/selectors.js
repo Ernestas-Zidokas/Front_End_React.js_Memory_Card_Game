@@ -20,8 +20,16 @@ export const getMovesCount = state => {
   return state[MODULE_NAME].cards.movesCount;
 };
 
-export const getScoreBoard = state => {
-  return state[MODULE_NAME].scoreBoard.data;
+export const getScoreBoardEasy = state => {
+  return state[MODULE_NAME].scoreBoard.difficulty.easy;
+};
+
+export const getScoreBoardMedium = state => {
+  return state[MODULE_NAME].scoreBoard.difficulty.medium;
+};
+
+export const getScoreBoardHard = state => {
+  return state[MODULE_NAME].scoreBoard.difficulty.hard;
 };
 
 export const getSortBy = state => {

@@ -4,13 +4,24 @@ import { compose, bindActionCreators } from 'redux';
 import TimerContext from '../../TimerContext';
 import game from '../../../../game';
 
-function Score({ setScore }) {
+function Score({ setScore, cardCount }) {
   const { time } = useContext(TimerContext);
   const inputEl = useRef(null);
 
   const handleSubmit = (e, time) => {
     e.preventDefault();
-    setScore(inputEl.current.value, time);
+
+    if (cardCount === 5) {
+      setScore(inputEl.current.value, time, 'easy');
+    }
+
+    if (cardCount === 10) {
+      setScore(inputEl.current.value, time, 'medium');
+    }
+
+    if (cardCount === 15) {
+      setScore(inputEl.current.value, time, 'hard');
+    }
   };
 
   return (
@@ -24,7 +35,9 @@ function Score({ setScore }) {
 
 const enhance = compose(
   connect(
-    null,
+    state => ({
+      cardCount: game.selectors.getCardCount(state),
+    }),
     dispatch =>
       bindActionCreators(
         {
