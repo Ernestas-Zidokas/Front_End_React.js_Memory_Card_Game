@@ -34,6 +34,8 @@ const MainScoreBoard = styled.main`
   margin: 0 auto;
   text-align: center;
   margin-top: 20px;
+  flex-grow: 1;
+  display: flex;
 `;
 
 function Layout({ children, cardCount }) {

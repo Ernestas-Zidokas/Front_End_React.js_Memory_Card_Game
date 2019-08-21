@@ -9,9 +9,9 @@ function SingleScore({ name, movesCount, time, i }) {
     <div className="SingleScore">
       <span>{i + 1}.</span>
       <span>{name}</span>
-      <span>Moves: {movesCount}</span>
+      <span>{movesCount}</span>
       <span>
-        Time: {min}m : {sec}s
+        {min}m : {sec}s
       </span>
     </div>
   );
