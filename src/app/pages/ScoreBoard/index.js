@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import game from '../../../game';
-import OneScoreboard from './components/OneScoreboard';
+import OneScoreboard from './OneScoreBoard';
 import './index.scss';
 
 function ScoreBoard({ scoreBoardEasy, scoreBoardHard, scoreBoardMedium }) {

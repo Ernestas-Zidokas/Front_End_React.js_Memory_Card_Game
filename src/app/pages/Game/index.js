@@ -1,17 +1,20 @@
 import React from 'react';
-import { SingleCard, WinScreen, Timer } from '../../components';
+import { SingleCard, Timer } from '../../components';
 import { connect } from 'react-redux';
+import WinScreen from '../WinScreen';
 import game from '../../../game';
 import './index.scss';
 
-function Cards({ cards, inGame }) {
+function Game({ cards, inGame }) {
   return (
-    <div className="Cards">
+    <div className="Game">
       {!inGame && <WinScreen />}
       <Timer />
-      {cards.map(props => {
-        return <SingleCard key={props.id} {...props} />;
-      })}
+      <div className="Cards">
+        {cards.map(props => {
+          return <SingleCard key={props.id} {...props} />;
+        })}
+      </div>
     </div>
   );
 }
@@ -21,4 +24,4 @@ const enhance = connect(state => ({
   inGame: game.selectors.getInGame(state),
 }));
 
-export default enhance(Cards);
+export default enhance(Game);

@@ -1,18 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import game from '../../../game';
 import { connect } from 'react-redux';
 import { useInterval } from '../../hooks';
 import TimerContext from '../TimerContext';
-import { timeConverter } from '../../../utils';
+import { timeConverter, countTimePassed } from '../../../utils';
 import './index.scss';
 
 function Timer({ inGame, movesCount }) {
-  const { time } = useContext(TimerContext);
-  const [currentTime, setCurrentTime] = useState(0);
-
+  const { startTime, currentTime, setCurrentTime } = useContext(TimerContext);
   useInterval(
     () => {
-      setCurrentTime(Math.floor((Date.now() - time) / 1000));
+      setCurrentTime(countTimePassed(Date.now(), startTime));
     },
     inGame ? 1000 : null,
   );

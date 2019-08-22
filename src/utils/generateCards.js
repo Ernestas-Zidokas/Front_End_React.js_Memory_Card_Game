@@ -1,47 +1,30 @@
-import * as constants from '../app/constants';
+import { suits, cardNames } from '../app/constants';
 import uniqueId from 'uniqid';
-
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
+import shuffleArray from './shuffleArray';
+import randomNumber from './randomNumber';
 
 function generateCards(count) {
   let cardArray = [];
   for (let i = 0; i < count; i++) {
     let card = {
-      num: Math.floor(Math.random() * 13) + 2,
-      suit: constants.suits[Math.floor(Math.random() * 4)],
+      num: randomNumber(13, 2),
+      suit: suits[randomNumber(4)],
       isOpen: false,
       isMatched: false,
     };
 
-    let cardExists = cardArray.find(
-      cardInArray => cardInArray.num === card.num && cardInArray.suit === card.suit,
-    );
+    let cardExists = cardArray.find(({ num, suit }) => num === card.num && suit === card.suit);
 
-    if (cardExists) {
-      count += 1;
-    } else {
-      cardArray.push(card);
-    }
+    cardExists ? (count += 1) : (cardArray = [...cardArray, card]);
   }
 
-  let cardArrayWithId = [...cardArray, ...cardArray].map(card => ({ ...card, id: uniqueId() }));
+  let pairedArray = [...cardArray, ...cardArray].map(card => ({
+    ...card,
+    id: uniqueId(),
+    cardName: cardNames[card.num],
+  }));
 
-  return shuffle(cardArrayWithId);
+  return shuffleArray(pairedArray);
 }
 
 export default generateCards;

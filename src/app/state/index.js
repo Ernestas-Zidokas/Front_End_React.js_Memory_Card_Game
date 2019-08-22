@@ -13,8 +13,7 @@ const composedMiddlewares =
     ? applyMiddleware(...middlewares)
     : composeWithDevTools(applyMiddleware(...middlewares));
 
-export default () => {
-  const store = createStore(persistedReducer, composedMiddlewares);
-  const persistor = persistStore(store);
-  return { store, persistor };
-};
+const store = createStore(persistedReducer, composedMiddlewares);
+const persistor = persistStore(store);
+
+export { store, persistor };

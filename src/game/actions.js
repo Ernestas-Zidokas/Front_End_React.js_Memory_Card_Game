@@ -45,7 +45,7 @@ export const getCards = () => (dispatch, getState) => {
   dispatch({ type: types.GET_CARDS });
   dispatch({
     type: types.GET_CARDS_SUCCESS,
-    payload: generateCards(2),
+    payload: generateCards(cardCount),
   });
 };
 

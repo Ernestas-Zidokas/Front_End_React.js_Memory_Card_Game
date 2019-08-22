@@ -21,19 +21,15 @@ export const getMovesCount = state => {
 };
 
 export const getScoreBoardEasy = state => {
-  return state[MODULE_NAME].scoreBoard.difficulty.easy;
+  return state[MODULE_NAME].scoreBoard.easy;
 };
 
 export const getScoreBoardMedium = state => {
-  return state[MODULE_NAME].scoreBoard.difficulty.medium;
+  return state[MODULE_NAME].scoreBoard.medium;
 };
 
 export const getScoreBoardHard = state => {
-  return state[MODULE_NAME].scoreBoard.difficulty.hard;
-};
-
-export const getSortBy = state => {
-  return state[MODULE_NAME].scoreBoard.sortBy;
+  return state[MODULE_NAME].scoreBoard.hard;
 };
 
 export const getPreviousCard = state => {

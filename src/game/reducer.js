@@ -12,15 +12,9 @@ const INITIAL_GAME_STATE = {
 };
 
 const INITIAL_SCOREBOARD_STATE = {
-  difficulty: {
-    easy: [{ name: 'Easy', movesCount: 5, time: 10 }],
-    medium: [
-      { name: 'Medium', movesCount: 5, time: 10 },
-      { name: 'asdasd', movesCount: 10, time: 2 },
-    ],
-    hard: [{ name: 'Hard', movesCount: 5, time: 10 }],
-  },
-  sortBy: 'time',
+  easy: [],
+  medium: [],
+  hard: [],
 };
 
 const INITIAL_STATE = {
@@ -148,13 +142,10 @@ function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         scoreBoard: {
           ...state.scoreBoard,
-          difficulty: {
-            ...state.scoreBoard.difficulty,
-            [payload.level]: [
-              ...state.scoreBoard.difficulty[payload.level],
-              { ...payload, movesCount: state.cards.movesCount },
-            ].sort((a, b) => a.time - b.time),
-          },
+          [payload.level]: [
+            ...state.scoreBoard[payload.level],
+            { ...payload, movesCount: state.cards.movesCount },
+          ].sort((a, b) => a.time - b.time),
         },
       };
 
