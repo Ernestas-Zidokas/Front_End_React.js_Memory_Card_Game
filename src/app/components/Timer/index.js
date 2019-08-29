@@ -8,6 +8,7 @@ import './index.scss';
 
 function Timer({ inGame, movesCount }) {
   const { startTime, currentTime, setCurrentTime } = useContext(TimerContext);
+
   useInterval(
     () => {
       setCurrentTime(countTimePassed(Date.now(), startTime));
@@ -23,8 +24,8 @@ function Timer({ inGame, movesCount }) {
         Time: {min}
         <span>m</span> : {sec}
         <span>s</span>
+        <div className="Timer--moves">Moves: {movesCount}</div>
       </time>
-      <div className="Timer--moves">Moves: {movesCount}</div>
     </div>
   );
 }

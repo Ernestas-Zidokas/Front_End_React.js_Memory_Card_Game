@@ -7,7 +7,7 @@ function OneScoreBoard({ scoreBoard, title }) {
 
   return (
     <div className="OneScoreBoard">
-      <p>{title} Difficulty Scoreboard!</p>
+      <p>{title} Difficulty Scoreboard</p>
       {scoreBoard.length > 0 && <Filter scoreBoard={scoreBoard} setBoard={setBoard} />}
       <Header />
       {!scoreBoard.length && <p>Be the First to set your Score!</p>}
