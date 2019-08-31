@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import game from '../../../game';
 import { Difficulty, SubmitScore } from './components';
 import Button from '../../components/Button';
@@ -46,20 +46,18 @@ function WinScreen({ isWin, togglePlay, playAgain }) {
   );
 }
 
-const enhance = compose(
-  connect(
-    state => ({
-      isWin: game.selectors.getWinGame(state),
-    }),
-    dispatch =>
-      bindActionCreators(
-        {
-          togglePlay: game.actions.togglePlay,
-          playAgain: game.actions.playAgain,
-        },
-        dispatch,
-      ),
-  ),
+const enhance = connect(
+  state => ({
+    isWin: game.selectors.getWinGame(state),
+  }),
+  dispatch =>
+    bindActionCreators(
+      {
+        togglePlay: game.actions.togglePlay,
+        playAgain: game.actions.playAgain,
+      },
+      dispatch,
+    ),
 );
 
 export default enhance(WinScreen);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import Button from '../../../components/Button';
 import styled from 'styled-components';
 import game from '../../../../game';
@@ -46,19 +46,17 @@ function Difficulty({ setCardCount, cardCount }) {
   );
 }
 
-const enhance = compose(
-  connect(
-    state => ({
-      cardCount: game.selectors.getCardCount(state),
-    }),
-    dispatch =>
-      bindActionCreators(
-        {
-          setCardCount: game.actions.setCardCount,
-        },
-        dispatch,
-      ),
-  ),
+const enhance = connect(
+  state => ({
+    cardCount: game.selectors.getCardCount(state),
+  }),
+  dispatch =>
+    bindActionCreators(
+      {
+        setCardCount: game.actions.setCardCount,
+      },
+      dispatch,
+    ),
 );
 
 export default enhance(Difficulty);

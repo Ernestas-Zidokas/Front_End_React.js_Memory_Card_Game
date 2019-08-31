@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import * as cardImages from '../../pages/Game/cardsImages';
 import game from '../../../game';
 import { cardBack } from '../../constants';
@@ -20,19 +20,17 @@ function SingleCard({ suit, num, isOpen, id, openCard, cardName, cardCount }) {
   );
 }
 
-const enhance = compose(
-  connect(
-    state => ({
-      cardCount: game.selectors.getCardCount(state),
-    }),
-    dispatch =>
-      bindActionCreators(
-        {
-          openCard: game.actions.openCard,
-        },
-        dispatch,
-      ),
-  ),
+const enhance = connect(
+  state => ({
+    cardCount: game.selectors.getCardCount(state),
+  }),
+  dispatch =>
+    bindActionCreators(
+      {
+        openCard: game.actions.openCard,
+      },
+      dispatch,
+    ),
 );
 
 export default enhance(SingleCard);

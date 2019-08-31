@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import Button from '../../../components/Button';
 import TimerContext from '../../../components/TimerContext';
 import IsScoreSubmitedContext from '../../../components/IsScoreSubmitedContext';
@@ -43,19 +43,17 @@ function SubmitScore({ setScore, cardCount }) {
   );
 }
 
-const enhance = compose(
-  connect(
-    state => ({
-      cardCount: game.selectors.getCardCount(state),
-    }),
-    dispatch =>
-      bindActionCreators(
-        {
-          setScore: game.actions.setScore,
-        },
-        dispatch,
-      ),
-  ),
+const enhance = connect(
+  state => ({
+    cardCount: game.selectors.getCardCount(state),
+  }),
+  dispatch =>
+    bindActionCreators(
+      {
+        setScore: game.actions.setScore,
+      },
+      dispatch,
+    ),
 );
 
 export default enhance(SubmitScore);
