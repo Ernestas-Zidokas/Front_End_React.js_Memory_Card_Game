@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d390af6e8d8ed5e85ddb2b7be81fa36a",
+    "revision": "b2733411b64195ea8520eda7e2c6eee2",
     "url": "/Front_End_React.js_Memory_Card_Game/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Front_End_React.js_Memory_Card_Game/static/css/2.7fad5d03.chunk.css"
   },
   {
-    "revision": "e0f527fd2d13bb07c37c",
+    "revision": "16c923ed7140841dfce0",
     "url": "/Front_End_React.js_Memory_Card_Game/static/css/main.004fd0e0.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Front_End_React.js_Memory_Card_Game/static/js/2.8fa17723.chunk.js"
   },
   {
-    "revision": "e0f527fd2d13bb07c37c",
-    "url": "/Front_End_React.js_Memory_Card_Game/static/js/main.507d5847.chunk.js"
+    "revision": "16c923ed7140841dfce0",
+    "url": "/Front_End_React.js_Memory_Card_Game/static/js/main.d6ebafa4.chunk.js"
   },
   {
     "revision": "d07005a06a4470c61c53",
