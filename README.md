@@ -1,6 +1,6 @@
 # Memory card game
 
-Purpose of the game is to open all the card. Once you open two cards that are exactly the same, they stay open. The game tracks time and moves count to rank you at the ScoreBoard!
+Purpose of the game is to open all the cards. Once you open two cards that are exactly the same, they stay open - otherwise, they close. You will have to remember the placements of the cards you didn't guessed. The game tracks time and moves count to rank you at the ScoreBoard!
 
 ## Getting Started
 
