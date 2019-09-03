@@ -11,7 +11,15 @@ function MasterProvider({ children }) {
       <IsScoreSubmitedProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Router>{children}</Router>
+            <Router
+              basename={
+                process.env.NODE_ENV === 'production'
+                  ? '/Front_End_React.js_Memory_Card_Game/'
+                  : undefined
+              }
+            >
+              {children}
+            </Router>
           </PersistGate>
         </Provider>
       </IsScoreSubmitedProvider>
